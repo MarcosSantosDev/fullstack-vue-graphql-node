@@ -61,24 +61,24 @@ import "bootstrap/dist/css/bootstrap.css";
 import "font-awesome/css/font-awesome.css";
 
 export default {
-  name: "app",
-  data() {
-    return {
-      prefixes: ["Air", "Jet", "Fligth"],
-      sufixes: ["Hub", "Station", "Mart"],
-      domains: [
-        "AirHub",
-        "AirStation",
-        "AirMart",
-        "JetHub",
-        "JetStation",
-        "JetMart",
-        "FligthHub",
-        "FligthStation",
-        "FligthMart"
-      ]
-    };
-  }
+	name: "app",
+	data() {
+		return {
+			prefixes: ["Air", "Jet", "Fligth"],
+			sufixes: ["Hub", "Station", "Mart"],
+			domains: [
+				"AirHub",
+				"AirStation",
+				"AirMart",
+				"JetHub",
+				"JetStation",
+				"JetMart",
+				"FligthHub",
+				"FligthStation",
+				"FligthMart"
+			]
+		};
+	}
 };
 </script>
 <style >
