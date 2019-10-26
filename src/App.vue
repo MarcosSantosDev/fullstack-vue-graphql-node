@@ -110,17 +110,6 @@ export default {
 		return {
 			prefixes: ["Air", "Jet", "Fligth"],
 			sufixes: ["Hub", "Station", "Mart"],
-			domains: [
-				"AirHub",
-				"AirStation",
-				"AirMart",
-				"JetHub",
-				"JetStation",
-				"JetMart",
-				"FligthHub",
-				"FligthStation",
-				"FligthMart"
-			],
 			prefix: "",
 			sufix: ""
 		};
@@ -129,27 +118,26 @@ export default {
 		addPrefix() {
 			this.prefixes.push(this.prefix);
 			this.prefix = "";
-			this.generate();
 		},
 		deletePrefix(value) {
-			this.prefixes = this.prefixes.filter(prefix => prefix != value);
-			this.generate();      
+			this.prefixes = this.prefixes.filter(prefix => prefix != value);      
 		},
 		addSufix() {
 			this.sufixes.push(this.sufix);
 			this.sufix = "";
-			this.generate();
 		},
 		deleteSufix(value) {
 			this.sufixes = this.sufixes.filter(sufix => sufix != value);
-			this.generate();
-		},
-		generate() {
-			this.domains = [];
-
+		}
+	},
+	computed: {
+		domains() {
+			const domains = [];
 			this.prefixes.map(prefix => {
-				this.sufixes.map(sufix => this.domains.push(prefix + sufix));
+				this.sufixes.map(sufix => domains.push(prefix + sufix));
 			});
+      
+			return domains;
 		}
 	}
 };
