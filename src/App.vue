@@ -91,7 +91,16 @@
         <div class="card">
           <div class="card-body">
             <ul class="list-group">
-              <li class="list-group-item" v-for="domain in domains" :key="domain">{{ domain }}</li>
+              <li class="list-group-item" v-for="domain in domains" :key="domain.name">
+                <div class="row">
+                  <div class="col-md">
+                    {{ domain.name }}
+                  </div>
+                  <div class="col-md text-right">
+                    <a class="btn btn-info" v-bind:href="domain.checkout" target="_blank"><span class="fa fa-shopping-cart"></span></a>
+                  </div>
+                </div>
+              </li>
             </ul>
           </div>
         </div>
@@ -134,7 +143,15 @@ export default {
 		domains() {
 			const domains = [];
 			this.prefixes.map(prefix => {
-				this.sufixes.map(sufix => domains.push(prefix + sufix));
+				this.sufixes.map(sufix => { 
+					const domain = prefix + sufix;
+					const uri = `https://checkout.hostgator.com.br/?a=add&sld=${ domain.toLowerCase() }&tld=.com`;
+    
+					domains.push({
+						name: domain,
+						checkout: uri 
+					});
+				});
 			});
       
 			return domains;
