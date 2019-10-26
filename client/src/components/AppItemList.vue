@@ -25,7 +25,7 @@
                 type="text"
                 v-model="item"
                 v-on:keyup.enter="addItem(item)"
-                placeholder="Digite o itemos"
+                placeholder="Digite o item"
                 />
                 <div class="input-group-append">
                 <button type="button" class="btn btn-info" v-on:click="addItem(item)">

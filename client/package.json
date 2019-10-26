@@ -34,7 +34,8 @@
     "rules": {
       "quotes": ["error", "double"],
       "indent": ["error", "tab"],
-      "semi": ["error", "always"]
+      "semi": ["error", "always"],
+      "no-console": "off"
     },
     "parserOptions": {
       "parser": "babel-eslint"
