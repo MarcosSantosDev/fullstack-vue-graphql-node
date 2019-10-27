@@ -42,16 +42,15 @@
 </template>
 
 <script>
-import "bootstrap/dist/css/bootstrap.css";
-import "font-awesome/css/font-awesome.css";
+import axios from "axios/dist/axios";
 import AppItemList from "./AppItemList";
 
 export default {
 	name: "domainList",
 	data() {
 		return {
-			prefixes: ["Air", "Jet", "Fligth"],
-			sufixes: ["Hub", "Station", "Mart"],
+			prefixes: [],
+			sufixes: [],
 		};
 	},
 	components: {
@@ -62,21 +61,22 @@ export default {
 			this.prefixes.push(prefix);
 		},
 		deletePrefix(value) {
-			this.prefixes = this.prefixes.filter(prefix => prefix != value);      
+			this.prefixes = this.prefixes.filter(prefix => prefix.description != value.description);      
 		},
 		addSufix(sufix) {
 			this.sufixes.push(sufix);
 		},
 		deleteSufix(value) {
-			this.sufixes = this.sufixes.filter(sufix => sufix != value);
+			this.sufixes = this.sufixes.filter(sufix => sufix.description != value.description);
 		}
 	},
 	computed: {
 		domains() {
 			const domains = [];
+      
 			this.prefixes.map(prefix => {
 				this.sufixes.map(sufix => { 
-					const domain = prefix + sufix;
+					const domain = prefix.description + sufix.description;
 					const uri = `https://checkout.hostgator.com.br/?a=add&sld=${ domain.toLowerCase() }&tld=.com`;
     
 					domains.push({
@@ -88,6 +88,34 @@ export default {
       
 			return domains;
 		}
+	},
+	created() {
+		axios({
+			url: "http://localhost:4000",
+			method: "post",
+			data: {
+				query: `
+          {
+            prefixes: items(type: "prefix") {
+              id
+              type
+              description
+            }
+            sufixes: items(type: "sufix") {
+              id
+              type
+              description
+            }
+          }
+        `
+			}
+		})
+			.then(response => {
+				const queryResults = response.data;
+          
+				this.prefixes = queryResults.data.prefixes;
+				this.sufixes = queryResults.data.sufixes;
+			});
 	}
 };
 </script>
